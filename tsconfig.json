@@ -5,6 +5,7 @@
     "noImplicitAny": true,
     "outDir": "./build",
     "noEmitOnError": true,
+    "strict": false,
   },
   "include": ["./src/**/*", "./server.ts"]
 }
