@@ -19,20 +19,16 @@ export default class PetController {
     constructor(private repository: PetRepository) {
 
     }
-    criaPet(req: Request, res: Response){
+    async criaPet(req: Request, res: Response){
         const {adotado, dataDeNascimento, especie, nome} = <PetEntity>req.body;
         if(!Object.values(EnumEspecie).includes(especie)) {
             return res.status(400).json({   error: "Especie inválida"   })
         }
         
-        const novoPet = new PetEntity();
-        (novoPet.id = geraId()), 
-        (novoPet.adotado = adotado),
-        (novoPet.especie = especie),
-        (novoPet.dataDeNascimento = dataDeNascimento),
-        (novoPet.nome = nome),
+        const novoPet = new PetEntity(nome, especie, dataDeNascimento, adotado);
+
         
-        this.repository.criaPet(novoPet)
+        await this.repository.criaPet(novoPet)
         return res.status(201).json(novoPet);
     }
 
